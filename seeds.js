@@ -11,24 +11,25 @@ function seedDB() {
         } else {
             console.log("removed tweets!");
             data.statuses.forEach(function(seed){
+                console.log(seed)
+                var url = 'https:\/\/twitter.com/'+seed.user.screen_name+'/status/'+seed.id_str;
                 var tweet = {
                     date: seed.created_at,
                     text: seed.text,
                     tweetId: seed.id_str,
-                    url: seed.expanded_url,
+                    url: url,
                     username: seed.user.screen_name
                 }
-                Tweets.create(seed, function(err, campground) {
+  
+                Tweets.create(tweet, function(err, tweet) {
                     if(err){
                         console.log(err);
                     } else {
                         console.log("added a twitter comment");
-                        //Now, time to add a comment to each campground!
                     }
                 });
             });
         }
     }); 
-    //add a few comments
 }
 module.exports = seedDB;
