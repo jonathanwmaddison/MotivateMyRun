@@ -4,6 +4,7 @@
   "description": "A sms text service to inspire you to meet your running goals.",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
