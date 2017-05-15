@@ -1,17 +1,24 @@
 var mongoose = require("mongoose");
 var Tweets = require("./models/tweets");
-var ScrapHistory = require("./models/scrap-history");
+//var ScrapHistory = require("./models/scrap-history");
 var OAuth2 = require('OAuth').OAuth2;
 var https = require('https')
 
 //Connect to DB
-var database = 'mongodb://localhost/motivate_my_run';
+var dbUsername = process.env.DB_USERNAME;
+var dbPassword = process.env.DB_PASSWORD;
+
+var database = 'mongodb://'+dbUsername+':'+dbPassword+'@ds143071.mlab.com:43071/motivate_my_run'
+
+// for local testing  use mongodb://localhost/motivate_my_run';
+
 mongoose.connect(database);
 
 //authorize app to use twitter API
 var token = process.env.TWITTER_TOKEN
 var secret = process.env.TWITTER_SECRET
 var access_token;
+
 if(!process.env.ACCESS_TOKEN) {
     var oauth2 = new OAuth2(token, secret, 'https://api.twitter.com/', null, 'oauth2/token', null);
     oauth2.getOAuthAccessToken('', {
@@ -84,4 +91,4 @@ process.on('SIGINT', function() {
   }); 
 }); 
 
-module.exports = seedDB;
+module.exports = addTweetsToDB;
