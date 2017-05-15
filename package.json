@@ -1,0 +1,23 @@
+{
+  "name": "motivate-my-run",
+  "version": "1.0.0",
+  "description": "A sms text service to inspire you to meet your running goals.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonathanwmaddison/MotivateMyRun.git"
+  },
+  "author": "Jonathan Maddison",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonathanwmaddison/MotivateMyRun/issues"
+  },
+  "homepage": "https://github.com/jonathanwmaddison/MotivateMyRun#readme",
+  "devDependencies": {
+    "express": "^4.15.2",
+    "mongoose": "^4.9.9"
+  }
+}
