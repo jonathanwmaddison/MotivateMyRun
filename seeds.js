@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 var Tweets = require("./models/tweets");
-//var ScrapHistory = require("./models/scrap-history");
+//var ScrapeHistory = require("./models/scrape-history");
 var OAuth2 = require('OAuth').OAuth2;
 var https = require('https')
 
