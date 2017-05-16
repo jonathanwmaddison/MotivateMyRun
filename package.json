@@ -22,8 +22,9 @@
   },
   "dependencies": {
     "dotenv": "^4.0.0",
-    "oauth": "^0.9.15",
+    "https": "^1.0.0",
     "mongoose": "^4.9.9",
-    "https": "^1.0.0"
+    "oauth": "^0.9.15",
+    "twilio": "^3.0.0"
   }
 }
