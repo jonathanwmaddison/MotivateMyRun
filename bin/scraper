@@ -69,9 +69,7 @@ function getTweets() {
                 var tweets = JSON.parse(buffer);
                 addTweetsToDB(tweets)
                 recordScrapeHistory(tweets.search_metadata)
-                mongoose.connection.close(function () { 
-                    console.log('Mongoose default connection disconnected through app termination'); 
-                }); 
+                
             })
         });
     });
@@ -103,7 +101,9 @@ function addTweetsToDB(tweets) {
                     }
                 });
             });
-            process.exit()
+            mongoose.connection.close(function () { 
+                console.log('Mongoose default connection disconnected through app termination'); 
+            }); 
         }
     });   
 }
