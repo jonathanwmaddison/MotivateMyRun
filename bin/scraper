@@ -1,7 +1,9 @@
+#! motivate_my_run/bin/node
+
 require('dotenv').config()
 var mongoose = require("mongoose");
-var Tweets = require("./models/tweets");
-var ScrapeHistory = require("./models/scrape-history");
+var Tweets = require("../models/tweets");
+var ScrapeHistory = require("../models/scrape-history");
 var OAuth2 = require('OAuth').OAuth2;
 var https = require('https')
 
@@ -68,6 +70,7 @@ function getTweets() {
                 var tweets = JSON.parse(buffer);
                 addTweetsToDB(tweets)
                 recordScrapeHistory(tweets.search_metadata)
+                process.exit()
             })
         });
     });
@@ -120,4 +123,3 @@ process.on('SIGINT', function() {
   }); 
 }); 
 
-module.exports = addTweetsToDB;
