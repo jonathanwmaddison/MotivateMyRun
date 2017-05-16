@@ -1,4 +1,4 @@
-#! motivate_my_run/bin/node
+#! app/bin/node
 
 require('dotenv').config()
 var mongoose = require("mongoose");
