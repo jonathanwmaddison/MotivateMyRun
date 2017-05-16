@@ -99,12 +99,12 @@ function addTweetsToDB(tweets) {
                     } else {
                         console.log("added a twitter comment");
                         count++
+                        if(count == length) {
+                            mongoose.disconnect()
+                        }
                     }
                 });
             });
-            if(count == length) {
-                mongoose.disconnect()
-            }
         }
     });   
 }
