@@ -1,4 +1,4 @@
-#! app/bin/node
+#! /app/.heroku/node/bin/node
 
 require('dotenv').config()
 var mongoose = require("mongoose");
