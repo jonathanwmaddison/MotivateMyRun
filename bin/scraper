@@ -69,7 +69,6 @@ function getTweets() {
                 var tweets = JSON.parse(buffer);
                 addTweetsToDB(tweets)
                 recordScrapeHistory(tweets.search_metadata)
-                
             })
         });
     });
@@ -81,12 +80,8 @@ function addTweetsToDB(tweets) {
         if(err){
             console.log(err);
         } else {
-            console.log("removed tweets!");
             var length = tweets.statuses.length;
-            var count = 0
             tweets.statuses.forEach(function(seed){
-                count++
-                console.log(seed)
                 var url = 'https:\/\/twitter.com/'+seed.user.screen_name+'/status/'+seed.id_str;
                 var tweet = {
                     date: seed.created_at,
@@ -104,11 +99,9 @@ function addTweetsToDB(tweets) {
                     }
                 });
             });
-            if(count === length) {
-                mongoose.connection.close(function () { 
-                    console.log('Mongoose default connection disconnected through app termination'); 
-                }); 
-            }
+            database.close(function () { 
+               console.log('Mongoose default connection disconnected through app termination'); 
+            })
         }
     });   
 }
