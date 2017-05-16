@@ -15,7 +15,7 @@ var database = 'mongodb://'+dbUsername+':'+dbPassword+'@ds143071.mlab.com:43071/
 
 // for local testing  use mongodb://localhost/motivate_my_run';
 
-mongoose.connect(database);
+var dbConnect = mongoose.connect(database);
 
 //authorize app to use twitter API
 var token = process.env.TWITTER_TOKEN
@@ -99,7 +99,7 @@ function addTweetsToDB(tweets) {
                     }
                 });
             });
-            database.close(function () { 
+            dbconnect.close(function () { 
                console.log('Mongoose default connection disconnected through app termination'); 
             })
         }
