@@ -69,6 +69,9 @@ function getTweets() {
                 var tweets = JSON.parse(buffer);
                 addTweetsToDB(tweets)
                 recordScrapeHistory(tweets.search_metadata)
+                mongoose.connection.close(function () { 
+                    console.log('Mongoose default connection disconnected through app termination'); 
+                }); 
             })
         });
     });
@@ -116,9 +119,6 @@ function recordScrapeHistory(metadata) {
 }
 //disconnect from DB when node service ends
 process.on('SIGINT', function() {  
-  mongoose.connection.close(function () { 
-    console.log('Mongoose default connection disconnected through app termination'); 
-    process.exit(0); 
-  }); 
+  
 }); 
 
