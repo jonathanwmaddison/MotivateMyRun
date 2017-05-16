@@ -19,11 +19,11 @@
   "homepage": "https://github.com/jonathanwmaddison/MotivateMyRun#readme",
   "devDependencies": {
     "express": "^4.15.2",
-    "https": "^1.0.0",
-    "mongoose": "^4.9.9"
+    "https": "^1.0.0"
   },
   "dependencies": {
     "dotenv": "^4.0.0",
-    "oauth": "^0.9.15"
+    "oauth": "^0.9.15",
+    "mongoose": "^4.9.9"
   }
 }
