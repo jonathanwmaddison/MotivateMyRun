@@ -83,6 +83,9 @@ function addTweetsToDB(tweets) {
         } else {
             var length = tweets.statuses.length;
             var count = 0
+            if(length === 0) {
+                mongoose.disconnect()
+            }
             tweets.statuses.forEach(function(seed){
                 var url = 'https:\/\/twitter.com/'+seed.user.screen_name+'/status/'+seed.id_str;
                 var tweet = {
