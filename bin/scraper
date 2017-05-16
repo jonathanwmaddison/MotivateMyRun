@@ -68,8 +68,12 @@ function getTweets() {
             });
             result.on('end', function () {
                 var tweets = JSON.parse(buffer);
-                addTweetsToDB(tweets)
                 recordScrapeHistory(tweets.search_metadata)
+                if(tweets.statuses.length > 0) {
+                    addTweetsToDB(tweets)
+                } else {
+                    mongoose.disconnect()
+                }
             })
         });
     });
@@ -77,39 +81,31 @@ function getTweets() {
 
 
 function addTweetsToDB(tweets) {
-    Tweets.remove({}, function(err) {
-        if(err){
-            console.log(err);
-        } else {
-            var length = tweets.statuses.length;
-            var count = 0
-            if(length === 0) {
-                mongoose.disconnect()
-            }
-            tweets.statuses.forEach(function(seed){
-                var url = 'https:\/\/twitter.com/'+seed.user.screen_name+'/status/'+seed.id_str;
-                var tweet = {
-                    date: seed.created_at,
-                    text: seed.text,
-                    tweetId: seed.id_str,
-                    url: url,
-                    username: seed.user.screen_name
-                }
-  
-                Tweets.create(tweet, function(err, tweet) {
-                    if(err){
-                        console.log(err);
-                    } else {
-                        console.log("added a twitter comment");
-                        count++
-                        if(count == length) {
-                            mongoose.disconnect()
-                        }
-                    }
-                });
-            });
+    var length = tweets.statuses.length;
+    var count = 0
+    tweets.statuses.forEach(function(seed){
+        var url = 'https:\/\/twitter.com/'+seed.user.screen_name+'/status/'+seed.id_str;
+        var tweet = {
+            date: seed.created_at,
+            text: seed.text,
+            tweetId: seed.id_str,
+            url: url,
+            username: seed.user.screen_name
         }
-    });   
+
+        Tweets.create(tweet, function(err, tweet) {
+            if(err){
+                console.log(err);
+            } else {
+                console.log("added a twitter comment");
+                count++
+                //disconnect once all tweets have been added
+                if(count == length) {
+                    mongoose.disconnect() 
+                }
+            }
+        });
+    }); 
 }
 
 function recordScrapeHistory(metadata) {
@@ -117,12 +113,9 @@ function recordScrapeHistory(metadata) {
         if(err) {
             console.log(err)
         } else {
-            console.log(history, 'added history to db')
+            console.log('added history to db')
         }
     });
 }
-//disconnect from DB when node service ends
-process.on('SIGINT', function() {  
   
-}); 
 
