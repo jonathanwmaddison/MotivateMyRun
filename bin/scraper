@@ -49,7 +49,7 @@ function getTweets() {
                 lastScrape = post.refresh_url;
                 console.log('last scrape was' + post.date)
             } else {
-                lastScrape = '?q=%23Runspiration'
+                lastScrape = '?q=%23fromwhereirun'
             }
         }
         var options = {
