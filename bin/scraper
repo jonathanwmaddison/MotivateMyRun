@@ -66,11 +66,9 @@ function getTweets() {
                 buffer+= data;
             });
             result.on('end', function () {
-                console.log(buffer)
                 var tweets = JSON.parse(buffer);
                 addTweetsToDB(tweets)
                 recordScrapeHistory(tweets.search_metadata)
-                process.exit()
             })
         });
     });
