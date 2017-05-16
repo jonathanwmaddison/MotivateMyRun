@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
 
-var scrapHistorySchema = new mongoose.Schema({
+var scrapeHistorySchema = new mongoose.Schema({
     date: { type: Date, default: Date.now() },
-    tweetsScrapped: Number,
+    refresh_url: String,
+    count: Number,
 });
 
-module.exports = mongoose.model('Tweets', tweetSchema)
+module.exports = mongoose.model('ScrapeHistory', scrapeHistorySchema)
