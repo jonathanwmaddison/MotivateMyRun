@@ -18,13 +18,13 @@
   },
   "homepage": "https://github.com/jonathanwmaddison/MotivateMyRun#readme",
   "devDependencies": {
-    "express": "^4.15.2"
   },
   "dependencies": {
     "dotenv": "^4.0.0",
     "https": "^1.0.0",
     "mongoose": "^4.9.9",
     "oauth": "^0.9.15",
-    "twilio": "^3.0.0"
+    "twilio": "^3.0.0",
+    "express": "^4.15.2"
   }
 }
