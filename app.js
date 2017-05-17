@@ -10,7 +10,7 @@ app.get('/', function(req, res) {
     fetchTweet(sendSms);
 });
 app.get('/documentation', function(req, res) {
-    res.render('./documentation/global.html')
+    res.sendFile('./documentation/global.html')
 }
 //  Run Server
 app.listen(port, function() {
