@@ -45,7 +45,7 @@ function getTweets() {
                 lastScrape = post.refresh_url;
                 console.log('last scrape was' + post.date)
             } else {
-                lastScrape = '?q=%23fromwhereirun+OR+%23werunsocial'
+                lastScrape = '?q=%23fromwhereirun+OR+%23runstreak'
             }
         }
         var options = {
