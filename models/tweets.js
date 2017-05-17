@@ -1,13 +1,13 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var tweetSchema = new mongoose.Schema({
+const tweetSchema = new mongoose.Schema({
     username: String,
     text: String,
     images: Array,
     url: String,
     date: Date,
     tweetId: String,
-    sent: { type: Boolean, default: false }
+    sent: {type: Boolean, default: false},
 });
 
-module.exports = mongoose.model('Tweets', tweetSchema)
+module.exports = mongoose.model('Tweets', tweetSchema);

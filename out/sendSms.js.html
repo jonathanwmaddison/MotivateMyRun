@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: sendSms.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,40 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: sendSms.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>require('dotenv').config();
+/**
+ * Sends sms message to phone number through twilio api
+ * @param {string} to - The phone number of the recipient of the message
+ * @param {string} message - The message being sent
+ */
 
+function sendSms(to, message) {
+    const client = require('twilio')(process.env.TWILIO_ID, process.env.TWILIO_TOKEN);
+    return client.api.messages
+        .create({
+            body: message,
+            to: to,
+            from: process.env.TWILIO_NUMBER,
+         }).then(function(data) {
+            console.log('Run message send');
+         }).catch(function(err) {
+            console.log('Could not send run motivation', err);
+         });
+};
 
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports = sendSms;
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -1,17 +1,11 @@
-#! /app/.heroku/node/bin/node
+_#! /app/.heroku/node/bin/node
 
 require('dotenv').config();
 const mongoose = require('mongoose');
 const Tweets = require('../models/tweets');
 const ScrapeHistory = require('../models/scrape-history');
 const https = require('https');
-
-//  Connect to DB
-const dbUsername = process.env.DB_USERNAME;
-const dbPassword = process.env.DB_PASSWORD;
-const dbUrl = process.env.DB_URL;
-const database = 'mongodb://'+dbUsername+':'+dbPassword+dbUrl;
-mongoose.connect(database);
+const mongooseConnection = require('../connectToDb')();
 
 //  authorize app to use twitter API
 const accessToken = process.env.ACCESS_TOKEN;
@@ -54,7 +48,7 @@ function getTweets() {
                     addTweetsToDB(tweets);
                 } else {
                     console.log('No new tweets found');
-                    mongoose.disconnect();
+                    mongooseConnection.disconnect();
                 }
             });
         });
@@ -85,7 +79,7 @@ function addTweetsToDB(tweets) {
                 count++;
                 //  disconnect once all tweets have been added
                 if(count == length) {
-                    mongoose.disconnect();
+                    mongooseConnection.disconnect();
                 }
             }
         });

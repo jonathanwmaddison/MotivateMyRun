@@ -1,13 +1,6 @@
 require('dotenv').config();
-const mongoose = require('mongoose');
+const databaseConnection = require('./connectToDb')()
 const Tweets = require('./models/tweets');
-
-//  get config variables and connect to DB
-const dbUsername = process.env.DB_USERNAME;
-const dbPassword = process.env.DB_PASSWORD;
-const dbUrl = process.env.DB_URL;
-const database = 'mongodb://'+dbUsername+':'+dbPassword+dbUrl;
-mongoose.connect(database);
 
 /**
  * Finds random tweet in database
