@@ -1,117 +1,109 @@
 #! /app/.heroku/node/bin/node
 
-require('dotenv').config()
-var mongoose = require("mongoose");
-var Tweets = require("../models/tweets");
-var ScrapeHistory = require("../models/scrape-history");
-//var OAuth2 = require('OAuth').OAuth2;
-var https = require('https')
+require('dotenv').config();
+const mongoose = require('mongoose');
+const Tweets = require('../models/tweets');
+const ScrapeHistory = require('../models/scrape-history');
+const https = require('https');
 
-//Connect to DB
-var dbUsername = process.env.DB_USERNAME;
-var dbPassword = process.env.DB_PASSWORD;
-var database = 'mongodb://'+dbUsername+':'+dbPassword+'@ds143071.mlab.com:43071/motivate_my_run'
+//  Connect to DB
+const dbUsername = process.env.DB_USERNAME;
+const dbPassword = process.env.DB_PASSWORD;
+const dbUrl = process.env.DB_URL;
+const database = 'mongodb://'+dbUsername+':'+dbPassword+dbUrl;
 mongoose.connect(database);
 
-//authorize app to use twitter API
-var token = process.env.TWITTER_TOKEN
-var secret = process.env.TWITTER_SECRET
-var access_token = process.env.ACCESS_TOKEN;
+//  authorize app to use twitter API
+const accessToken = process.env.ACCESS_TOKEN;
 
-//needs to be updated
-
-/*if(!process.env.ACCESS_TOKEN) {
-    var oauth2 = new OAuth2(token, secret, 'https://api.twitter.com/', null, 'oauth2/token', null);
-    oauth2.getOAuthAccessToken('', {
-        'grant_type': 'client_credentials'
-        }, function (e, response_token) {
-            access_token = response_token;
-    })
-} else {
-    access_token = process.env.ACCESS_TOKEN
-}*/
-
-getTweets()
-
+/**
+ * Scrapes twitter for new posts with key hashtags(fromwhereirun & runstreak)
+ */
 function getTweets() {
-    var options;
-    //find update url from previous scrape
-    ScrapeHistory.findOne({}, {}, { sort: { 'date' : -1 } }, function(err, post) {
-       var lastScrape;
-        if(err) { 
-            console.log('Did not retrieve latest post'); 
+    //  find update url from previous scrape
+    ScrapeHistory.findOne({}, {}, {sort: {'date': -1}}, function(err, post) {
+       let updateUrl;
+        if(err) {
+            console.log('Error checking scrape history');
         } else {
             if(post) {
-                lastScrape = post.refresh_url;
-                console.log('last scrape was' + post.date)
+                updateUrl = post.refresh_url;
+                console.log('last scrape was ' + post.date);
             } else {
-                lastScrape = '?q=%23fromwhereirun+OR+%23runstreak'
+                updateUrl = '?q=%23fromwhereirun+OR+%23runstreak';
             }
         }
-        var options = {
+        let options = {
             hostname: 'api.twitter.com',
-            path: '/1.1/search/tweets.json' + lastScrape,
+            path: '/1.1/search/tweets.json' + updateUrl,
             headers: {
-                Authorization: 'Bearer ' + access_token
-            }
-        }
-        // make call and combine chunked responses
-        https.get(options, function (result) {
-            var buffer = ''
+                Authorization: 'Bearer ' + accessToken,
+            },
+        };
+        //  make call and combine chunked responses
+        https.get(options, function(result) {
+            let buffer = '';
             result.setEncoding('utf8');
-            result.on('data', function(data){
+            result.on('data', function(data) {
                 buffer+= data;
             });
-            result.on('end', function () {
-                var tweets = JSON.parse(buffer);
-                recordScrapeHistory(tweets.search_metadata)
+            result.on('end', function() {
+                let tweets = JSON.parse(buffer);
+                recordScrapeHistory(tweets.search_metadata);
                 if(tweets.statuses.length > 0) {
-                    addTweetsToDB(tweets)
+                    addTweetsToDB(tweets);
                 } else {
-                    mongoose.disconnect()
+                    console.log('No new tweets found');
+                    mongoose.disconnect();
                 }
-            })
+            });
         });
     });
 }
 
-
+/**
+ *  Adds new tweets to the database
+ * @param {Object[]} tweets - The tweets that match the twitter api query.
+ */
 function addTweetsToDB(tweets) {
-    var length = tweets.statuses.length;
-    var count = 0
-    tweets.statuses.forEach(function(seed){
-        var url = 'https:\/\/twitter.com/'+seed.user.screen_name+'/status/'+seed.id_str;
-        var tweet = {
+    let length = tweets.statuses.length;
+    let count = 0;
+    tweets.statuses.forEach(function(seed) {
+        let url = 'https:\/\/twitter.com/'+seed.user.screen_name+'/status/'+seed.id_str;
+        let tweet = {
             date: seed.created_at,
             text: seed.text,
             tweetId: seed.id_str,
             url: url,
-            username: seed.user.screen_name
-        }
-
+            username: seed.user.screen_name,
+        };
         Tweets.create(tweet, function(err, tweet) {
-            if(err){
+            if(err) {
                 console.log(err);
             } else {
-                console.log("added a twitter comment");
-                count++
-                //disconnect once all tweets have been added
+                console.log('added a twitter comment');
+                count++;
+                //  disconnect once all tweets have been added
                 if(count == length) {
-                    mongoose.disconnect() 
+                    mongoose.disconnect();
                 }
             }
         });
-    }); 
+    });
 }
 
+/**
+ * Adds twitter scrape history to database
+ * @param {Object[]} metadata - Data from the most recent scrape.
+ */
 function recordScrapeHistory(metadata) {
     ScrapeHistory.create(metadata, function(err, history) {
         if(err) {
-            console.log(err)
+            console.log(err);
         } else {
-            console.log('added history to db')
+            console.log('added history to db');
         }
     });
 }
-  
-
+//  Run Tweet Scraper
+getTweets();
