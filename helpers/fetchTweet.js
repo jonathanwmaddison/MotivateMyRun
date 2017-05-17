@@ -1,6 +1,6 @@
 require('dotenv').config();
 const databaseConnection = require('./connectToDb')()
-const Tweets = require('./models/tweets');
+const Tweets = require('../models/tweets');
 
 /**
  * Finds random tweet in database

@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const sendSms = require('./sendSms');
-const fetchTweet = require('./fetchTweet');
+const sendSms = require('./helpers/sendSms');
+const fetchTweet = require('./helpers/fetchTweet');
 const port = process.env.PORT ? process.env.PORT : '3000';
 
 //  Set up Express Route
