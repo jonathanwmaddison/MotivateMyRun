@@ -9,7 +9,9 @@ app.get('/', function(req, res) {
     res.send('Random message pulled from db and sent through Twilio');
     fetchTweet(sendSms);
 });
-
+app.get('/documentation', function(req, res) {
+    res.render('./documentation/global.html')
+}
 //  Run Server
 app.listen(port, function() {
     console.log('Twilio client has started on port '+port);
