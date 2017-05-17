@@ -12,8 +12,6 @@ var ip = process.env.ip ? process.env.ip : "localhost";
 var database = 'mongodb://localhost/motivate_my_run';
 mongoose.connect(database);
 
-app.use(twilioInterface);
-
 //Set up routes
 app.use("/", twilioClient('+18027341161','hello world'))
 
