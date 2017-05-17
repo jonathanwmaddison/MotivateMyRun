@@ -8,7 +8,7 @@ var ip = process.env.IP ? process.env.IP : "localhost";
 
 
 //Set up routes
-app.use("/", function() {
+app.get("/", function() {
     fetchTweet(twilioClient.sendSms)    
 })
 
