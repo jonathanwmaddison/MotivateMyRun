@@ -1,19 +1,28 @@
-require('dotenv').config()
-var mongoose = require('mongoose');
-var Tweets = require('./models/tweets');
+require('dotenv').config();
+const mongoose = require('mongoose');
+const Tweets = require('./models/tweets');
 
-var dbUsername = process.env.DB_USERNAME;
-var dbPassword = process.env.DB_PASSWORD;
-var database = 'mongodb://'+dbUsername+':'+dbPassword+'@ds143071.mlab.com:43071/motivate_my_run'
-
+//  get config variables and connect to DB
+const dbUsername = process.env.DB_USERNAME;
+const dbPassword = process.env.DB_PASSWORD;
+const dbUrl = process.env.DB_URL;
+const database = 'mongodb://'+dbUsername+':'+dbPassword+dbUrl;
 mongoose.connect(database);
-function fetchTweet(callback) {
-    Tweets.count().exec(function (err, count) {
-        var random = Math.floor(Math.random() * count)
+
+/**
+ * Finds random tweet in database
+ * @param {requestCallback} messageHandler - The callback that sends the random tweet to Twilio.
+ */
+function fetchTweet(messageHandler) {
+    Tweets.count().exec(function(err, count) {
+        let random = Math.floor(Math.random() * count);
         Tweets.findOne().skip(random).exec(
-            function (err, result) {
-                callback('+18027341161',result.text) 
-            })
-    })
+            function(err, result) {
+                let {text, url, username} = result;
+                let message = 'DAILY RUN MOTIVATION - "';
+                message += text + '" ' + username + '@ ' + url;
+                messageHandler('+18027341161', message);
+            });
+    });
 }
 module.exports = fetchTweet;
