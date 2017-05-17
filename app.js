@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 const sendSms = require('./sendSms');
 const fetchTweet = require('./fetchTweet');
 const port = process.env.PORT ? process.env.PORT : '3000';
@@ -10,8 +11,8 @@ app.get('/', function(req, res) {
     fetchTweet(sendSms);
 });
 app.get('/documentation', function(req, res) {
-    res.sendFile('./documentation/global.html')
-}
+    res.sendFile(path.join(__dirname+'/documentation/global.html'));
+});
 //  Run Server
 app.listen(port, function() {
     console.log('Twilio client has started on port '+port);
