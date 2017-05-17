@@ -10,11 +10,7 @@ var https = require('https')
 //Connect to DB
 var dbUsername = process.env.DB_USERNAME;
 var dbPassword = process.env.DB_PASSWORD;
-
 var database = 'mongodb://'+dbUsername+':'+dbPassword+'@ds143071.mlab.com:43071/motivate_my_run'
-
-// for local testing  use mongodb://localhost/motivate_my_run';
-
 mongoose.connect(database);
 
 //authorize app to use twitter API
@@ -49,7 +45,7 @@ function getTweets() {
                 lastScrape = post.refresh_url;
                 console.log('last scrape was' + post.date)
             } else {
-                lastScrape = '?q=%23fromwhereirun'
+                lastScrape = '?q=%23fromwhereirun+OR+%23werunsocial'
             }
         }
         var options = {

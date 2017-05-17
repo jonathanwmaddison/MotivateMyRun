@@ -3,7 +3,7 @@ require('dotenv').config()
 var twilioClient = {};
 twilioClient.sendSms = function(to, message) {
     var client = require('twilio')(process.env.TWILIO_ID, process.env.TWILIO_TOKEN);
-    return client.api.message
+    return client.api.messages
         .create({
             body: message,
             to: to,
