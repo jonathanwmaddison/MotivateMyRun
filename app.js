@@ -7,7 +7,7 @@ var port = process.env.PORT ? process.env.PORT : "3000"
 
 
 //Set up routes
-app.get("/", function(res, req) {
+app.get("/", function(req, res) {
     res.send('twilio message being sent')
     fetchTweet(twilioClient.sendSms)    
 })
