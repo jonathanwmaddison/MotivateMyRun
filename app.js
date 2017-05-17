@@ -13,7 +13,7 @@ var database = 'mongodb://localhost/motivate_my_run';
 mongoose.connect(database);
 
 //Set up routes
-app.use("/", twilioClient('+18027341161','hello world'))
+app.use("/", twilioClient.sendSms('+18027341161','hello world'))
 
 app.listen(port, ip, function() {
     console.log("Twitter Scraper has started on port"+port)
