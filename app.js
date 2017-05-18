@@ -7,6 +7,7 @@ const port = process.env.PORT ? process.env.PORT : '3000';
 
 //  Set up Express Route
 app.get('/', function(req, res) {
+    console.log('test')
     res.send('Random message pulled from db and sent through Twilio');
     fetchTweet(sendSms);
 });
