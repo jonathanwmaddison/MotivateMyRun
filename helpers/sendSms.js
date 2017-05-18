@@ -5,7 +5,7 @@ require('dotenv').config();
  * @param {string} message - The message being sent
  */
 
-function sendSms(to, message, config) {
+function sendSms(message, config) {
     let token, number, id;
     if (typeof config === 'object') {
         token = config.token;
