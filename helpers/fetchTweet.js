@@ -12,8 +12,8 @@ function fetchTweet(messageHandler) {
         Tweets.findOne().skip(random).exec(
             function(err, result) {
                 let {text, url, username} = result;
-                let message = 'DAILY RUN MOTIVATION - "';
-                message += text + '" ' + username + '@ ' + url;
+                let message = 'Here\'s your daily run motivation from Twitter user @';
+                message += username + ': "' + text + '". Permalink: ' + url;
                 messageHandler('+18027341161', message);
             });
     });
