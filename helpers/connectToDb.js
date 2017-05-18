@@ -4,6 +4,8 @@ const dbUsername = process.env.DB_USERNAME;
 const dbPassword = process.env.DB_PASSWORD;
 const dbUrl = process.env.DB_URL;
 const database = 'mongodb://'+dbUsername+':'+dbPassword+dbUrl;
+mongoose.Promise = global.Promise;
+
 /**
  *Connects to Database and return mongoose so connection can be closed
  */
