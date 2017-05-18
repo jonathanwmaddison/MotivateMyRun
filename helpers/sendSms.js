@@ -3,8 +3,9 @@ require('dotenv').config();
  * Sends sms message to phone number through twilio api
  * @param {string} to - The phone number of the recipient of the message
  * @param {string} message - The message being sent
+ * @param {object} config - Optional configuration for testing
+ * @return {Promise}
  */
-
 function sendSms(to, message, config) {
     let token, number, id;
     if (typeof config === 'object') {
@@ -16,9 +17,6 @@ function sendSms(to, message, config) {
        number = process.env.TWILIO_NUMBER;
        id = process.env.TWILIO_ID
     }
-    if (to === '') {
-        to = process.env.RECEIVING_NUMBER;
-    } 
     const client = require('twilio')(id, token);
     return client.api.messages
         .create({

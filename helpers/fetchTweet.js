@@ -15,9 +15,10 @@ function fetchTweet(messageHandler) {
                     console.log(err)
                 } else {
                     let {text, url, username} = result;
+                    let to = process.env.RECEIVING_NUMBER;
                     let message = 'Here\'s your run motivation from Twitter user @';
                     message += username + ': "' + text + '". Permalink: ' + url;
-                    messageHandler('', message).catch(function(error) {
+                    messageHandler(to, message).catch(function(error) {
                         console.log(error);
                     });
                 }
