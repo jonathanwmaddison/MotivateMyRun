@@ -23,7 +23,7 @@ function sendSms(to, message, config) {
     return client.api.messages
         .create({
             body: message,
-            to: to
+            to: to,
             from: number,
          })
 };
