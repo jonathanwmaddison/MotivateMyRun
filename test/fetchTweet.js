@@ -11,7 +11,7 @@ describe('fetchTweet', function() {
      it('fetches tweet and adds title', () => {
 
         return fetchTweet(function(number,tweet) {
-            asssert(tweet.slice(0, 5) === 'Here', 'should add title to message')
+            assert(tweet.slice(0, 5) === 'Here', 'should add title to message')
         });
      });
 });
