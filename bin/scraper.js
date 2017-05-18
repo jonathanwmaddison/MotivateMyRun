@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Tweets = require('../models/tweets');
 const ScrapeHistory = require('../models/scrape-history');
 const https = require('https');
-const mongooseConnection = require('../connectToDb')();
+const mongooseConnection = require('../helpers/connectToDb')();
 
 //  authorize app to use twitter API
 const accessToken = process.env.ACCESS_TOKEN;
