@@ -18,7 +18,7 @@ function fetchTweet(messageHandler) {
                     let {text, url, username} = result;
                     let message = 'Here\'s your run motivation from Twitter user @';
                     message += username + ': "' + text + '". Permalink: ' + url;
-                    messageHandler(message).catch(function(error) {
+                    messageHandler('', message).catch(function(error) {
                         console.log(error);
                     });
                 }
