@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: helpers/connectToDb.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,34 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: helpers/connectToDb.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>require('dotenv').config();
+const mongoose = require('mongoose');
+const dbUsername = process.env.DB_USERNAME;
+const dbPassword = process.env.DB_PASSWORD;
+const dbUrl = process.env.DB_URL;
+const database = 'mongodb://'+dbUsername+':'+dbPassword+dbUrl;
+mongoose.Promise = global.Promise;
 
-
-    <h3> </h3>
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+/**
+ *Connects to Database and return mongoose so connection can be closed
+ */
+function connectToDb() {
+    mongoose.connect(database); 
+    return mongoose;
+};
+module.exports = connectToDb;
+</code></pre>
+        </article>
+    </section>
 
 
 
