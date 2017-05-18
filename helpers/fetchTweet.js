@@ -12,7 +12,7 @@ function fetchTweet(messageHandler) {
         Tweets.findOne().skip(random).exec(
             function(err, result) {
                 let {text, url, username} = result;
-                let message = 'Here\'s your daily run motivation from Twitter user @';
+                let message = 'Here\'s your run motivation from Twitter user @';
                 message += username + ': "' + text + '". Permalink: ' + url;
                 messageHandler('+18027341161', message);
             });

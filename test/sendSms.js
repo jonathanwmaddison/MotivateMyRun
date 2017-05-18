@@ -12,14 +12,13 @@ describe('SMS sender', function() {
     it('sends to registered number', () => {
         return sendSms('+18027341161', 'Successful message', config)
             .then(function(data) {
-                let message = 'Sent from your Twilio trial account - Successful message'
+                let message = 'Successful message'
                 assert(data.body === message, "should send message");
             });
      });
      it('does not send to unregistered number', () => {
         return sendSms('+15005550009', 'Should not send', config)
             .then(function(data) {
-                console.log(data)
         }).catch(function(error){
             assert(error.status === 400, "should not send to non-mobile number");
         });
