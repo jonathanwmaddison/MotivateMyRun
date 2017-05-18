@@ -51,4 +51,4 @@ If you deploy this on Heroku, it is easy to schedule this script to run once eve
 
 npm run-script lint will analyze all javascript files in the project based on Google linting standards.
 
-npm run test runs a few mocha/chai tests.
+npm test runs a few mocha/chai tests.
