@@ -20,15 +20,9 @@ function sendSms(to, message, config) {
     return client.api.messages
         .create({
             body: message,
-            to: to,
+            to: process.env.RECEIVING_NUMBER,
             from: number,
-         })/*.then(function(data) {
-            return data
-            console.log('Run message send');
-         }).catch(function(err) {
-            return err;
-            console.log('Could not send run motivation', err);
-         });*/
+         })
 };
 
 module.exports = sendSms;
