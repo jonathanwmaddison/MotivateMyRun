@@ -11,10 +11,14 @@ function fetchTweet(messageHandler) {
         let random = Math.floor(Math.random() * count);
         Tweets.findOne().skip(random).exec(
             function(err, result) {
-                let {text, url, username} = result;
-                let message = 'Here\'s your run motivation from Twitter user @';
-                message += username + ': "' + text + '". Permalink: ' + url;
-                messageHandler('+18027341161', message);
+                if (err) {
+                    console.log(err)
+                } else {
+                    let {text, url, username} = result;
+                    let message = 'Here\'s your run motivation from Twitter user @';
+                    message += username + ': "' + text + '". Permalink: ' + url;
+                    messageHandler('+18027341161', message);
+                }
             });
     });
 }
