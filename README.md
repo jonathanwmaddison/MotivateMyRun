@@ -6,8 +6,6 @@ Motivate My Run is a prototype sms messaging service that sends randomly selecte
 
 run npm install for the required packages.
 
-Update the phone number that you want the program to text.
-
 ### Environmental Variables
 
 Setup a .env file in your root with the following key values (you'll need to setup twitter, a database, and Twilio account). This was built using an mLabs hosted mongoDB database.
