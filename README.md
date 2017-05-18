@@ -12,11 +12,11 @@ Update the phone number that you want the program to text.
 
 Setup a .env file in your root with the following key values (you'll need to setup twitter, a database, and Twilio account). This was built using an mLabs hosted mongoDB database.
 
-DB_PASSWORD -> from your mLabs DB
+Database
 
-DB_USERNAME -> from your mLabs DB
-
-DB_URL -> from your mLabs DB
+DB_PASSWORD 
+DB_USERNAME
+DB_URL 
 
 TWITTER_TOKEN -> Twitter api Token 
 
@@ -30,7 +30,7 @@ TWILIO_TEST_ID
 
 Other
 
-RECEIVING_NUMBER=Cell#ToBeTextedTheTweets
+RECEIVING_NUMBER -> Cell phone To Be Texted
 
 ## Running the server 
 
