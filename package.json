@@ -4,6 +4,7 @@
   "description": "A sms text service to inspire you to meet your running goals.",
   "main": "app.js",
   "scripts": {
+    "lint": "eslint ./",
     "start": "node app.js",
     "test": "./node_modules/.bin/mocha --reporter spec"
   },
