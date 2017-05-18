@@ -5,7 +5,7 @@ require('dotenv').config();
  * @param {string} message - The message being sent
  */
 
-function sendSms(message, config) {
+function sendSms(to, message, config) {
     let token, number, id;
     if (typeof config === 'object') {
         token = config.token;
@@ -16,11 +16,14 @@ function sendSms(message, config) {
        number = process.env.TWILIO_NUMBER;
        id = process.env.TWILIO_ID
     }
+    if (to === '') {
+        to = process.env.RECEIVING_NUMBER;
+    } 
     const client = require('twilio')(id, token);
     return client.api.messages
         .create({
             body: message,
-            to: process.env.RECEIVING_NUMBER,
+            to: to
             from: number,
          })
 };

@@ -10,7 +10,7 @@ let config = {
 }
 describe('SMS sender', function() {
     it('sends to registered number', () => {
-        return sendSms('+18027341161', 'Successful message', config)
+        return sendSms('', 'Successful message', config)
             .then(function(data) {
                 let message = 'Successful message'
                 assert(data.body === message, "should send message");
